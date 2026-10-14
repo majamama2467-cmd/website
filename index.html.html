@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gokul N — Full-stack and mobile developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF1EE;--surface:#F7F9F7;--ink:#13232A;--muted:#4F6369;--line:#C6D3CE;--accent:#0E6E68;--hot:#E8590C;--onaccent:#fff;
+  --display:'Bricolage Grotesque','Segoe UI',Arial,sans-serif;--body:'Instrument Sans','Segoe UI',Arial,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1B1F;--surface:#152429;--ink:#E6EFEC;--muted:#9BB0B2;--line:#27393F;--accent:#5FD0C4;--hot:#FF8A4C;--onaccent:#0F1B1F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1B1F;--surface:#152429;--ink:#E6EFEC;--muted:#9BB0B2;--line:#27393F;--accent:#5FD0C4;--hot:#FF8A4C;--onaccent:#0F1B1F;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hot);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;letter-spacing:-.02em}
+p{margin:0}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;gap:1rem;flex-wrap:wrap}
+nav .name{font:700 1.125rem var(--display);text-decoration:none}
+nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+/* hero */
+.hero{padding:clamp(3rem,9vw,7rem) 0 0}
+.hero h1{font-size:clamp(2.8rem,9vw,6.4rem);font-weight:800;max-width:11ch}
+.hero .lede{max-width:34rem;margin-top:1.75rem;font-size:1.2rem;color:var(--muted)}
+.cta{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-block;padding:.8rem 1.4rem;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--ink)}
+.btn.p{background:var(--accent);border-color:var(--accent);color:var(--onaccent)}
+.btn:hover{transform:translateY(-2px)}
+.btn{transition:transform .15s}
+canvas#sig{display:block;width:100%;height:120px;margin-top:clamp(2.5rem,6vw,4rem);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;padding:2rem 0}
+.facts b{display:block;font:700 1.15rem var(--display)}
+.facts span{color:var(--muted);font-size:.95rem}
+/* sections */
+section{padding:clamp(3.5rem,8vw,6rem) 0 0}
+h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;margin-bottom:2rem}
+/* experience timeline */
+.tl{border-left:2px solid var(--line);margin-left:.4rem}
+.job{position:relative;padding:0 0 2.5rem 1.75rem}
+.job::before{content:"";position:absolute;left:-.55rem;top:.45rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.job:first-child::before{background:var(--hot);border-color:var(--hot)}
+.job h3{font-size:1.4rem}
+.job .meta{color:var(--muted);margin:.25rem 0 .9rem}
+.job ul{margin:0;padding-left:1.1rem;max-width:44rem}
+.job li{margin-bottom:.5rem}
+/* projects */
+.proj{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:2rem;align-items:start}
+.tabs{display:flex;flex-direction:column;gap:.5rem}
+.tab{all:unset;cursor:pointer;padding:1rem 1.1rem;border-radius:12px;border:1px solid var(--line);font:600 1.05rem var(--display);line-height:1.2;transition:background .15s,border-color .15s}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.tab:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(1.25rem,3vw,2rem)}
+.panel[hidden]{display:none}
+.panel h3{font-size:1.7rem;margin-bottom:1rem}
+.panel p{margin-bottom:.9rem;max-width:38rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.25rem}
+.chip{padding:.25rem .8rem;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:.9rem;font-weight:500}
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2rem 2.5rem}
+.skills h3{font-size:1.1rem;margin-bottom:.6rem;color:var(--accent)}
+.skills p{color:var(--muted)}
+.skills p b{color:var(--ink);font-weight:500}
+/* education + contact */
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
+.edu h3{font-size:1.2rem;margin-bottom:.3rem}
+.edu span{color:var(--muted)}
+.contact{margin-top:clamp(3.5rem,8vw,6rem);padding:clamp(2rem,6vw,4rem);background:var(--accent);color:var(--onaccent);border-radius:24px}
+.contact h2{margin-bottom:1rem;max-width:14ch}
+.contact p{max-width:30rem;margin-bottom:1.5rem;opacity:.92}
+.contact .row{display:flex;gap:.75rem;flex-wrap:wrap}
+.contact a{padding:.75rem 1.25rem;border-radius:999px;border:2px solid var(--onaccent);text-decoration:none;font-weight:600}
+.contact a:hover{background:var(--onaccent);color:var(--accent)}
+footer{padding:2rem 0 2.5rem;color:var(--muted);font-size:.9rem}
+@media (max-width:760px){.proj{grid-template-columns:1fr}.tabs{flex-direction:row;overflow-x:auto;padding-bottom:.25rem}.tab{flex:0 0 auto;max-width:15rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.tab{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="Main">
+  <a class="name" href="#top">Gokul N</a>
+  <ul><li><a href="#work">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul>
+</nav>
+
+<header class="hero" id="top">
+  <h1>I build apps that talk to the real world.</h1>
+  <p class="lede">I'm Gokul, a computer science graduate from Chennai. I build mobile and web apps with FlutterFlow, Node.js and React, and I enjoy projects where software meets sensors, data and machine learning.</p>
+  <div class="cta"><a class="btn p" href="#projects">See my projects</a><a class="btn" href="#contact">Get in touch</a></div>
+  <canvas id="sig" role="img" aria-label="Decorative signal line that reacts to your pointer"></canvas>
+  <div class="facts">
+    <div><b>2 internships</b><span>Mobile and full-stack, Jun 2024 to Jan 2026</span></div>
+    <div><b>B.E. Computer Science</b><span>Sri Venkateswara College of Engineering, 2025</span></div>
+    <div><b>4 languages</b><span>English, Tamil, Telugu, Kannada</span></div>
+  </div>
+</header>
+
+<section id="work">
+  <h2>Where I've worked</h2>
+  <div class="tl">
+    <article class="job">
+      <h3>FlutterFlow and Backend Developer Trainee</h3>
+      <p class="meta">FINFRESH, Beyondiq Solutions Pvt. Ltd. &middot; Jul 2025 to Jan 2026</p>
+      <ul>
+        <li>Built mobile app screens in FlutterFlow and managed backend services in Node.js, connecting the two for smooth data flow.</li>
+        <li>Created REST APIs for core features, with authentication and database connectivity for secure data access.</li>
+        <li>Tested and debugged systematically to cut functional issues before release.</li>
+      </ul>
+    </article>
+    <article class="job">
+      <h3>Full Stack Web Development Intern</h3>
+      <p class="meta">Solar Secure Solutions &middot; Jun 2024 to Aug 2024</p>
+      <ul>
+        <li>Developed responsive web pages in HTML, CSS and JavaScript, with UI/UX improvements that made the site easier to use on any device.</li>
+        <li>Built Node.js backend features behind the site's dynamic functionality.</li>
+        <li>Worked with the team to fix bugs and improve page load performance.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="projects">
+  <h2>Things I've made</h2>
+  <div class="proj">
+    <div class="tabs" role="tablist" aria-label="Projects">
+      <button class="tab" role="tab" id="t0" aria-controls="p0" aria-selected="true">Smart Agriculture Web App</button>
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="false" tabindex="-1">Indian Recipe Recommender</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Automatic Braking for EVs</button>
+    </div>
+    <div>
+      <div class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+        <h3>Smart Agriculture Web App</h3>
+        <p>A farming app that monitors plant health and detects crop diseases. A soil device sends live moisture readings over Wi-Fi to Node.js APIs.</p>
+        <p>Farmers get guidance and alerts in Tamil or English, and an AI voice assistant reads them out.</p>
+        <div class="chips"><span class="chip">Node.js</span><span class="chip">IoT</span><span class="chip">Wi-Fi sensors</span><span class="chip">Multilingual NLP</span></div>
+      </div>
+      <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+        <h3>Indian Recipe Recommender</h3>
+        <p>Upload a photo of your ingredients and a ResNet-50 CNN works out what's in it.</p>
+        <p>The app then uses the Edamam API to suggest matching recipes, with step-by-step instructions, videos and calorie breakdowns, so planning a meal takes less effort.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">CNN (ResNet-50)</span><span class="chip">Image processing</span><span class="chip">Edamam API</span></div>
+      </div>
+      <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+        <h3>Automatic Braking for EVs</h3>
+        <p>A hardware braking system that uses front, rear and side sensors to spot obstacles in real time.</p>
+        <p>An Arduino reads the live sensor data, shows alerts on the dashboard and triggers the brakes automatically, which improved response accuracy.</p>
+        <div class="chips"><span class="chip">Arduino</span><span class="chip">Embedded C</span><span class="chip">Sensors</span><span class="chip">Hardware integration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <h2>What I work with</h2>
+  <div class="skills">
+    <div><h3>Languages</h3><p>Python, C++, Java, JavaScript, HTML, CSS</p></div>
+    <div><h3>Frameworks</h3><p>React.js, Node.js, FlutterFlow, Pandas, NumPy</p></div>
+    <div><h3>Databases</h3><p>MongoDB, SQL</p></div>
+    <div><h3>Data and analytics</h3><p>Excel, Power BI, Tableau</p></div>
+    <div><h3>Core areas</h3><p>REST API development, embedded systems, IoT, machine learning fundamentals, model training and optimization</p></div>
+    <div><h3>Working style</h3><p>Collaboration, adaptability, time management, communication, critical thinking, project planning</p></div>
+  </div>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <div class="edu">
+    <div><h3>B.E. Computer Science and Engineering</h3><span>Sri Venkateswara College of Engineering, Sriperumbudur<br>2021 to 2025</span></div>
+    <div><h3>Higher Secondary Education</h3><span>JNN Matric School, Chennai (81.2%)<br>2019 to 2021</span></div>
+  </div>
+</section>
+
+<section class="contact" id="contact" style="padding:clamp(2rem,6vw,4rem)">
+  <h2>Let's build something.</h2>
+  <p>I'm open to full-stack, mobile and data-focused roles. Email is the quickest way to reach me.</p>
+  <div class="row">
+    <a href="mailto:gokuln7575@gmail.com">gokuln7575@gmail.com</a>
+    <a href="tel:+918807497574">8807497574</a>
+    <a href="https://linkedin.com/in/gokulnagaraj57" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+<footer>&copy; 2026 Gokul N &middot; Chennai, India</footer>
+</div>
+
+<script>
+// project tabs
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab')),panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(i){tabs.forEach(function(t,j){t.setAttribute('aria-selected',j===i);t.tabIndex=j===i?0:-1;panels[j].hidden=j!==i});}
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(i)});
+    t.addEventListener('keydown',function(e){
+      var k=e.key,n=null;
+      if(k==='ArrowDown'||k==='ArrowRight')n=(i+1)%tabs.length;
+      if(k==='ArrowUp'||k==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;
+      if(n!==null){e.preventDefault();show(n);tabs[n].focus()}
+    });
+  });
+})();
+// signal line
+(function(){
+  var c=document.getElementById('sig'),x=c.getContext('2d'),w,h,mx=-1,amp=0.25,tgt=0.25,t=0;
+  var still=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function size(){var r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;w=r.width;h=r.height;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0)}
+  function col(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+  function draw(){
+    amp+=(tgt-amp)*.06;t+=.03;
+    x.clearRect(0,0,w,h);
+    x.strokeStyle=col('--hot');x.lineWidth=2.5;x.lineJoin='round';x.beginPath();
+    for(var i=0;i<=w;i+=3){
+      var p=i/w,near=mx<0?0:Math.exp(-Math.pow((i-mx)/90,2));
+      var y=h/2+Math.sin(p*14+t)*h*.18*amp*2+Math.sin(p*41-t*1.7)*h*.05*amp*2+Math.sin(p*6+t*.5)*h*.06
+        -near*Math.sin(p*60+t*3)*h*.3;
+      i?x.lineTo(i,y):x.moveTo(i,y);
+    }
+    x.stroke();
+    if(!still)requestAnimationFrame(draw);
+  }
+  size();addEventListener('resize',function(){size();if(still)draw()});
+  c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();mx=e.clientX-r.left;tgt=.5});
+  c.addEventListener('pointerleave',function(){mx=-1;tgt=.25});
+  draw();
+})();
+</script>
+</body>
+</html>
